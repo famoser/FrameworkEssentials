@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Famoser.FrameworkEssentials</id>
+        <version>1.1.0</version>
+        <authors>Florian Moser</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This packages contains portable classes which should be in every framework. 
+
+Currently, it contains: 
+- Singleton implementation
+- Logging</description>
+        <summary />
+    </metadata>
+    <files>
+        <file src="bin\Release\Famoser.FrameworkEssentials.dll" target="lib\Famoser.FrameworkEssentials.dll" />
+    </files>
+</package>
