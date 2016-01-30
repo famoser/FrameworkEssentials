@@ -9,9 +9,7 @@ namespace Famoser.FrameworkEssentials.Singleton
     public class SingletonManager
     {
         public static readonly SingletonManager Instance = new SingletonManager();
-
         private readonly Dictionary<Type, object> _contentDictionary = new Dictionary<Type, object>();
-
         private readonly object _locker = new object();
 
         protected SingletonManager()
