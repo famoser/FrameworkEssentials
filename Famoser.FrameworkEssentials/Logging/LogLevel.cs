@@ -18,14 +18,9 @@
         Error = 2,
 
         /// <summary>
-        /// something which does not allow the application to run as expected
+        /// something which does not allow the application to continue to run
         /// </summary>
         FatalError = 3,
-
-        /// <summary>
-        /// Api failed, on same status like FatalError
-        /// </summary>
-        ApiError = 4,
 
         /// <summary>
         /// A very very serious programming mistake

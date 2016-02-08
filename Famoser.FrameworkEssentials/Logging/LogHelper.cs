@@ -1,14 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using Famoser.FrameworkEssentials.Logging.Interfaces;
 using Famoser.FrameworkEssentials.Singleton;
 
 namespace Famoser.FrameworkEssentials.Logging
 {
     public class LogHelper : SingletonBase<LogHelper>
     {
-        private List<LogModel> _logs = new List<LogModel>();
+        private ILogger _logger;
 
-        public void Log(LogLevel level, object from, string message, Exception ex = null)
+        public LogHelper()
+        {
+            _logger = new Logger();
+        }
+
+        public void OverwriteLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
+
+        public void Log(LogLevel level, string message, object from = null, Exception ex = null)
         {
             var lm = new LogModel
             {
@@ -17,53 +28,52 @@ namespace Famoser.FrameworkEssentials.Logging
             };
 
             if (from != null)
-                lm.Location = from.GetType().Namespace + "." + from.GetType().Name;
+            {
+                if (from is string)
+                    lm.Location = (string)from;
+                else
+                    lm.Location = from.GetType().Namespace + "." + from.GetType().Name;
+            }
 
             if (ex != null)
                 lm.Message += ex.ToString();
 
-            _logs.Add(lm);
+            _logger.AddLog(lm);
         }
 
         public void LogException(Exception ex, object from = null)
         {
-            var lm = new LogModel
-            {
-                LogLevel = LogLevel.Error,
-                Message = "Exception occured"
-            };
-
-            if (from != null)
-                lm.Location = from.GetType().Namespace + "." + from.GetType().Name;
-
-            if (ex != null)
-                lm.Message += ex.ToString();
-
-            _logs.Add(lm);
+            Log(LogLevel.Error, "Exception occured", from, ex);
         }
 
-        public void Log(LogLevel level, string from, string message, Exception ex = null)
+        public void LogInfo(string message, object from = null, Exception ex = null)
         {
-            var lm = new LogModel
-            {
-                LogLevel = level,
-                Message = message
-            };
-
-            if (from != null)
-                lm.Location = from;
-
-            if (ex != null)
-                lm.Message += ex.ToString();
-
-            _logs.Add(lm);
+            Log(LogLevel.Info, message, from, ex);
         }
 
-        public List<LogModel> GetAllLogs()
+        public void LogWarning(string message, object from = null, Exception ex = null)
         {
-            var templogs = new List<LogModel>(_logs);
-            _logs = new List<LogModel>();
-            return templogs;
+            Log(LogLevel.Warning, message, from, ex);
         }
+
+        public void LogError(string message, object from = null, Exception ex = null)
+        {
+            Log(LogLevel.Error, message, from, ex);
+        }
+
+        public void LogFatalError(string message, object from = null, Exception ex = null)
+        {
+            Log(LogLevel.FatalError, message, from, ex);
+        }
+
+        public ILogger GetImplementation()
+        {
+            return _logger;
+        }
+
+        public List<LogModel> GetLogs(bool clearAfterwards = true)
+        {
+            return _logger.GetLogs(clearAfterwards);
+        } 
     }
 }
