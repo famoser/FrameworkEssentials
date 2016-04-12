@@ -15,7 +15,7 @@ namespace Famoser.FrameworkEssentials.DebugTools
             {
                 var classname = place is string ? (string)place : place.GetType().Name;
                 var newEntry = new Tuple<DateTime, string>(DateTime.Now, classname + ": " + description);
-                var identifier = identi.HasValue ? identi.Value : Guid.Empty;
+                var identifier = identi ?? Guid.Empty;
 
                 if (!_lastEntry.ContainsKey(identifier))
                 {

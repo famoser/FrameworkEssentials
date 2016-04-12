@@ -91,11 +91,15 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\RestService.cs" />
+    <Compile Include="Services\Interfaces\IRestService.cs" />
+    <Compile Include="Services\Interfaces\IStorageService.cs" />
     <Compile Include="Logging\Interfaces\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Logging\LogModel.cs" />
+    <Compile Include="Models\RestResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\SingletonBase.cs" />
     <Compile Include="Singleton\SingletonManager.cs" />
