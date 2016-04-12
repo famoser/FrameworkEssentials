@@ -91,6 +91,9 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\Interfaces\IProgressService.cs" />
+    <Compile Include="Services\ProgressService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\Interfaces\IRestService.cs" />
     <Compile Include="Services\Interfaces\IStorageService.cs" />
