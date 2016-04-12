@@ -5,7 +5,7 @@ using Famoser.FrameworkEssentials.Singleton;
 
 namespace Famoser.FrameworkEssentials.Logging
 {
-    public class LogHelper : SingletonBase<LogHelper>
+    public class LogHelper : SingletonBase<LogHelper>, IExceptionLogger
     {
         private ILogger _logger;
 

@@ -15,10 +15,10 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         void StartIndeterminateProgress(object key);
         void StopIndeterminateProgress(object key);
 
-        int GetMaxValueProgressBar();
-        int GetActiveValueProgressBar();
+        int GetPercentageProgressMaxValue();
+        int GetPercentageProgressActiveValue();
+        IList<object> GetActiveIndeterminateProgresses();
         bool IsPercentageProgressActive();
-        IEnumerable<object> ActiveIndeterminateProgress();
         bool IsIndeterminateProgressActive();
         bool IsAnyProgressActive();
     }

@@ -5,82 +5,112 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Famoser.FrameworkEssentials.Annotations;
+using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services
 {
-    public class ProgressService : IProgressService
+    public class ProgressService : PropertyChangedModel, IProgressService
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         #region percentageProgress
 
         private int _percentageProgressMaxValue;
-
-        private void SetPercentageProgressMaxValue(int newValue)
+        public int PercentageProgressMaxValue
         {
-            _percentageProgressMaxValue = newValue;
-            //todo
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IncrementPercentageProgress"));
+            get { return _percentageProgressMaxValue; }
+            set { Set(ref _percentageProgressMaxValue, value); }
         }
+
         private int _percentageProgressActiveValue;
+        public int PercentageProgressActiveValue
+        {
+            get { return _percentageProgressActiveValue; }
+            set { Set(ref _percentageProgressActiveValue, value); }
+        }
+
+        private bool _percentageProgressActive;
+        public bool PercentageProgressActive
+        {
+            get { return _percentageProgressActive; }
+            set { Set(ref _percentageProgressActive, value); }
+        }
+
         public void ConfigurePercentageProgress(int maxValue, int activeValue = 0)
         {
-            SetPercentageProgressMaxValue(maxValue);
-            _percentageProgressActiveValue = activeValue;
+            PercentageProgressMaxValue = maxValue;
+            PercentageProgressActiveValue = activeValue;
+            PercentageProgressActive = true;
         }
 
         public void IncrementPercentageProgress()
         {
-            ++_percentageProgressActiveValue;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IncrementPercentageProgress"));
+            PercentageProgressActiveValue++;
         }
 
         public void HidePercentageProgress()
         {
-            throw new NotImplementedException();
+            PercentageProgressActive = false;
         }
         #endregion
 
+        #region indeterminateProgress
+        private bool _indeterminateProgressActive;
+        public bool IndeterminateProgressActive
+        {
+            get { return _indeterminateProgressActive; }
+            set { Set(ref _indeterminateProgressActive, value); }
+        }
+
+        private readonly List<object> _indeterminateProgresses = new List<object>();
+
         public void StartIndeterminateProgress(object key)
         {
-            throw new NotImplementedException();
+            _indeterminateProgresses.Add(key);
+            IndeterminateProgressActive = true;
         }
 
         public void StopIndeterminateProgress(object key)
         {
-            throw new NotImplementedException();
+            if (_indeterminateProgresses.Contains(key))
+                _indeterminateProgresses.Remove(key);
+            IndeterminateProgressActive = _indeterminateProgresses.Any();
+        }
+        #endregion
+
+        #region common
+        public bool AnyProgressActive => PercentageProgressActive || IndeterminateProgressActive;
+        #endregion
+
+        #region methods for propertyAccess
+        public int GetPercentageProgressMaxValue()
+        {
+            return PercentageProgressMaxValue;
         }
 
-        public int GetMaxValueProgressBar()
+        public int GetPercentageProgressActiveValue()
         {
-            throw new NotImplementedException();
-        }
-
-        public int GetActiveValueProgressBar()
-        {
-            throw new NotImplementedException();
+            return PercentageProgressActiveValue;
         }
 
         public bool IsPercentageProgressActive()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<object> ActiveIndeterminateProgress()
-        {
-            throw new NotImplementedException();
+            return PercentageProgressActive;
         }
 
         public bool IsIndeterminateProgressActive()
         {
-            throw new NotImplementedException();
+            return IndeterminateProgressActive;
         }
 
         public bool IsAnyProgressActive()
         {
-            throw new NotImplementedException();
+            return AnyProgressActive;
         }
+
+        public IList<object> GetActiveIndeterminateProgresses()
+        {
+            return _indeterminateProgresses;
+        }
+        #endregion
     }
 }
