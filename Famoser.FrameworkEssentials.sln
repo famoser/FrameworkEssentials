@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.FrameworkEssentials", "Famoser.FrameworkEssentials\Famoser.FrameworkEssentials.csproj", "{6E2B514E-0271-40F0-867A-7E3FB06A4B9A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76E058A5-04E5-4F52-8510-B4AFC4698A11}"
-	ProjectSection(SolutionItems) = preProject
-		Famoser.FrameworkEssentials.1.2.0.nuspec = Famoser.FrameworkEssentials.1.2.0.nuspec
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
