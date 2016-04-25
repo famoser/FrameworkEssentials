@@ -7,8 +7,8 @@
     <ProjectGuid>{D70A011E-5CE8-40E9-9521-8001AFD5563E}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Famoser.FrameworkEssentials.RuntimeConsumer</RootNamespace>
-    <AssemblyName>Famoser.FrameworkEssentials.RuntimeConsumer</AssemblyName>
+    <RootNamespace>Famoser.FrameworkEssentials.UniversalWindows</RootNamespace>
+    <AssemblyName>Famoser.FrameworkEssentials.UniversalWindows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

@@ -3,10 +3,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Famoser.FrameworkEssentials.Logging.Interfaces;
-using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 
-namespace Famoser.FrameworkEssentials.RuntimeConsumer.Services
+namespace Famoser.FrameworkEssentials.UniversalWindows.Services
 {
     internal class StorageService : IStorageService
     {
