@@ -13,7 +13,13 @@ namespace Famoser.FrameworkEssentials.Services
 {
     public class RestService : IRestService
     {
-        private HttpClient GetClient(IDictionary<string, string> additionalHeaders = null)
+        private IDictionary<string, string> _additionalHeaders; 
+        public RestService(IDictionary<string, string> additionalHeaders)
+        {
+            _additionalHeaders = additionalHeaders;
+        }
+
+        private HttpClient GetClient()
         {
             var client = new HttpClient(
                 new HttpClientHandler
@@ -23,8 +29,8 @@ namespace Famoser.FrameworkEssentials.Services
                 });
 
             client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
-            if (additionalHeaders != null)
-                foreach (var additionalHeader in additionalHeaders)
+            if (_additionalHeaders != null)
+                foreach (var additionalHeader in _additionalHeaders)
                 {
                     client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key, additionalHeader.Value);
                 }
@@ -32,11 +38,11 @@ namespace Famoser.FrameworkEssentials.Services
             return client;
         }
 
-        public async Task<RestResponseModel> GetAsync(Uri uri, IDictionary<string, string> additionalHeaders = null)
+        public async Task<RestResponseModel> GetAsync(Uri uri)
         {
             try
             {
-                using (var client = GetClient(additionalHeaders))
+                using (var client = GetClient())
                 {
                     var res = await client.GetAsync(uri);
                     return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
@@ -48,11 +54,11 @@ namespace Famoser.FrameworkEssentials.Services
             }
         }
 
-        public async Task<RestResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IDictionary<string, string> additionalHeaders = null)
+        public async Task<RestResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent)
         {
             try
             {
-                using (var client = GetClient(additionalHeaders))
+                using (var client = GetClient())
                 {
                     var credentials = new FormUrlEncodedContent(
                         postContent
@@ -68,7 +74,7 @@ namespace Famoser.FrameworkEssentials.Services
             }
         }
 
-        public async Task<RestResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IDictionary<string, string> additionalHeaders = null)
+        public async Task<RestResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent)
         {
             try
             {
@@ -88,11 +94,11 @@ namespace Famoser.FrameworkEssentials.Services
             }
         }
 
-        public async Task<RestResponseModel> DeleteAsync(Uri uri, IDictionary<string, string> additionalHeaders = null)
+        public async Task<RestResponseModel> DeleteAsync(Uri uri)
         {
             try
             {
-                using (var client = GetClient(additionalHeaders))
+                using (var client = GetClient())
                 {
                     var res = await client.DeleteAsync(uri);
                     return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
