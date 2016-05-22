@@ -10,9 +10,9 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
     {
         Task<RestResponseModel> GetAsync(Uri uri);
         Task<RestResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
+        Task<RestResponseModel> PutJsonAsync(Uri uri, string json);
         Task<RestResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
+        Task<RestResponseModel> PostJsonAsync(Uri uri, string json);
         Task<RestResponseModel> DeleteAsync(Uri uri);
-
-        //todo: request with file
     }
 }

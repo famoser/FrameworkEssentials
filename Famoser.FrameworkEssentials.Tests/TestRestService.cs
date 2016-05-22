@@ -15,6 +15,30 @@ namespace Famoser.FrameworkEssentials.Tests
         private string _testUri = "https://api.frameworkessentials.famoser.ch";
 
         [TestMethod]
+        public async Task TestJsonPost()
+        {
+            //arrange
+            var service = new RestService();
+            var json = "{\"content\":\"hallo welt\"}";
+        
+            //act
+            var res = await service.PostJsonAsync(new Uri(_testUri), json);
+
+            //assert
+            Assert.IsTrue(res.IsRequestSuccessfull, res.Exception?.ToString());
+            if (res.IsRequestSuccessfull)
+            {
+                var response = await res.GetResponseAsStringAsync();
+
+                //assert
+                Assert.IsTrue(response.Contains(json));
+                Assert.IsTrue(response.StartsWith("start"));
+                Assert.IsTrue(response.EndsWith("end"));
+            }
+
+        }
+
+        [TestMethod]
         public async Task TestFilePost()
         {
             //arrange

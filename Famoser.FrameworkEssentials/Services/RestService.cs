@@ -50,7 +50,7 @@ namespace Famoser.FrameworkEssentials.Services
         {
             if (files == null)
                 return new FormUrlEncodedContent(postContent);
-            
+
             MultipartFormDataContent form = new MultipartFormDataContent();
             foreach (var keyValuePair in postContent)
             {
@@ -63,6 +63,11 @@ namespace Famoser.FrameworkEssentials.Services
                 form.Add(content, restFile.ContentName, restFile.FileName);
             }
             return form;
+        }
+
+        private HttpContent GetJsonContent(string json)
+        {
+            return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
         public async Task<RestResponseModel> GetAsync(Uri uri)
@@ -88,7 +93,22 @@ namespace Famoser.FrameworkEssentials.Services
 
                 var res = await client.PutAsync(uri, credentials);
                 return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+            }
+            catch (Exception ex)
+            {
+                return new RestResponseModel(ex);
+            }
+        }
 
+        public async Task<RestResponseModel> PutJsonAsync(Uri uri, string json)
+        {
+            try
+            {
+                var client = GetClient();
+                var credentials = GetJsonContent(json);
+
+                var res = await client.PutAsync(uri, credentials);
+                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
@@ -105,7 +125,22 @@ namespace Famoser.FrameworkEssentials.Services
 
                 var res = await client.PostAsync(uri, credentials);
                 return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+            }
+            catch (Exception ex)
+            {
+                return new RestResponseModel(ex);
+            }
+        }
 
+        public async Task<RestResponseModel> PostJsonAsync(Uri uri, string json)
+        {
+            try
+            {
+                var client = GetClient();
+                var credentials = GetJsonContent(json);
+
+                var res = await client.PostAsync(uri, credentials);
+                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
