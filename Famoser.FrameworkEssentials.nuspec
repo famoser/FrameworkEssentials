@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Famoser.FrameworkEssentials</id>
-        <version>2.0.1</version>
+        <version>2.1.0</version>
         <authors>Florian Moser</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This packages contains portable classes which should be in every framework.
@@ -13,8 +13,7 @@ Currently, it contains:
 - Logging
 - Progress Service
 - REST service</description>
-        <releaseNotes>addded more services
-logging implementation changed!</releaseNotes>
+        <releaseNotes>addded REST Service</releaseNotes>
     </metadata>
     <files>
         <file src="Famoser.FrameworkEssentials\bin\Release\Famoser.FrameworkEssentials.dll" target="lib\dotnet\Famoser.FrameworkEssentials.dll" />
