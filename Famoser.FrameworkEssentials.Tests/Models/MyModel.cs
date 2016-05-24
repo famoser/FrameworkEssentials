@@ -16,5 +16,9 @@ namespace Famoser.FrameworkEssentials.Tests.Models
         [Description("content")]
         public string FieldWithAttribute;
         public string FieldNoAttribute;
+
+        [Description("content")]
+        public void MethodWithAttribute() { }
+        public void MethodNoAttribute() { }
     }
 }
