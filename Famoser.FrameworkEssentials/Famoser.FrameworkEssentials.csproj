@@ -89,11 +89,15 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logging\Interfaces\IExceptionLogger.cs" />
     <Compile Include="Models\PropertyChangedModel.cs" />
     <Compile Include="Models\RestService\RestFile.cs" />
+    <Compile Include="Services\Base\HttpRequestService.cs" />
+    <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\Interfaces\IHttpService.cs" />
     <Compile Include="Services\Interfaces\IProgressService.cs" />
     <Compile Include="Services\ProgressService.cs" />
     <Compile Include="Services\RestService.cs" />
@@ -104,7 +108,7 @@
     <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Logging\LogModel.cs" />
-    <Compile Include="Models\RestService\RestResponseModel.cs" />
+    <Compile Include="Models\RestService\HttpResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\SingletonBase.cs" />
     <Compile Include="Singleton\SingletonManager.cs" />

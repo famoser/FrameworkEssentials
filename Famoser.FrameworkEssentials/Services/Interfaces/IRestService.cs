@@ -8,11 +8,11 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
 {
     public interface IRestService
     {
-        Task<RestResponseModel> GetAsync(Uri uri);
-        Task<RestResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
-        Task<RestResponseModel> PutJsonAsync(Uri uri, string json);
-        Task<RestResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
-        Task<RestResponseModel> PostJsonAsync(Uri uri, string json);
-        Task<RestResponseModel> DeleteAsync(Uri uri);
+        Task<HttpResponseModel> GetAsync(Uri uri);
+        Task<HttpResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
+        Task<HttpResponseModel> PutJsonAsync(Uri uri, string json);
+        Task<HttpResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
+        Task<HttpResponseModel> PostJsonAsync(Uri uri, string json);
+        Task<HttpResponseModel> DeleteAsync(Uri uri);
     }
 }

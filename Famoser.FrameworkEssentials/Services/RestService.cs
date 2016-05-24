@@ -10,40 +10,14 @@ using System.Threading.Tasks;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Models.RestService;
+using Famoser.FrameworkEssentials.Services.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services
 {
-    public class RestService : IRestService
+    public class RestService : HttpRequestService, IRestService
     {
-        private readonly IDictionary<string, string> _additionalHeaders;
-        public RestService(IDictionary<string, string> additionalHeaders = null)
-        {
-            _additionalHeaders = additionalHeaders;
-        }
-
-        private HttpClient _client;
-        private HttpClient GetClient()
-        {
-            if (_client == null)
-            {
-                _client = new HttpClient(
-                    new HttpClientHandler
-                    {
-                        AutomaticDecompression = DecompressionMethods.GZip
-                                                 | DecompressionMethods.Deflate
-                    });
-
-                _client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
-                if (_additionalHeaders != null)
-                    foreach (var additionalHeader in _additionalHeaders)
-                    {
-                        _client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key,
-                            additionalHeader.Value);
-                    }
-            }
-            return _client;
-        }
+        public RestService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }
 
         private HttpContent GetContent(IEnumerable<KeyValuePair<string, string>> postContent,
             IEnumerable<RestFile> files = null)
@@ -70,21 +44,21 @@ namespace Famoser.FrameworkEssentials.Services
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        public async Task<RestResponseModel> GetAsync(Uri uri)
+        public async Task<HttpResponseModel> GetAsync(Uri uri)
         {
             try
             {
                 var client = GetClient();
                 var res = await client.GetAsync(uri);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
 
-        public async Task<RestResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
+        public async Task<HttpResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
         {
             try
             {
@@ -92,15 +66,15 @@ namespace Famoser.FrameworkEssentials.Services
                 var credentials = GetContent(postContent, files);
 
                 var res = await client.PutAsync(uri, credentials);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
 
-        public async Task<RestResponseModel> PutJsonAsync(Uri uri, string json)
+        public async Task<HttpResponseModel> PutJsonAsync(Uri uri, string json)
         {
             try
             {
@@ -108,15 +82,15 @@ namespace Famoser.FrameworkEssentials.Services
                 var credentials = GetJsonContent(json);
 
                 var res = await client.PutAsync(uri, credentials);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
 
-        public async Task<RestResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
+        public async Task<HttpResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
         {
             try
             {
@@ -124,15 +98,15 @@ namespace Famoser.FrameworkEssentials.Services
                 var credentials = GetContent(postContent, files);
 
                 var res = await client.PostAsync(uri, credentials);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
 
-        public async Task<RestResponseModel> PostJsonAsync(Uri uri, string json)
+        public async Task<HttpResponseModel> PostJsonAsync(Uri uri, string json)
         {
             try
             {
@@ -140,25 +114,25 @@ namespace Famoser.FrameworkEssentials.Services
                 var credentials = GetJsonContent(json);
 
                 var res = await client.PostAsync(uri, credentials);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
 
-        public async Task<RestResponseModel> DeleteAsync(Uri uri)
+        public async Task<HttpResponseModel> DeleteAsync(Uri uri)
         {
             try
             {
                 var client = GetClient();
                 var res = await client.DeleteAsync(uri);
-                return new RestResponseModel(res.Content, res.IsSuccessStatusCode);
+                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
             }
             catch (Exception ex)
             {
-                return new RestResponseModel(ex);
+                return new HttpResponseModel(ex);
             }
         }
     }

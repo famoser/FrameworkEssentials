@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace Famoser.FrameworkEssentials.Models.RestService
 {
-    public class RestResponseModel
+    public class HttpResponseModel
     {
-        public RestResponseModel(HttpContent content, bool successfull)
+        public HttpResponseModel(HttpContent content, bool successfull)
         {
             HttpContent = content;
             IsRequestSuccessfull = successfull;
         }
-        public RestResponseModel(Exception ex)
+        public HttpResponseModel(Exception ex)
         {
             Exception = ex;
             IsRequestSuccessfull = false;
