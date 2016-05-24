@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Famoser.FrameworkEssentials.Services.Base
 {
-    public class HttpRequestService
+    public class HttpRequestService : IDisposable
     {
         private readonly IDictionary<string, string> _additionalHeaders;
         public HttpRequestService(IDictionary<string, string> additionalHeaders)
@@ -37,6 +37,11 @@ namespace Famoser.FrameworkEssentials.Services.Base
                     }
             }
             return _client;
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
         }
     }
 }
