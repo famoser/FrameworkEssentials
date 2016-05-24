@@ -92,6 +92,7 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Logging\Interfaces\IExceptionLogger.cs" />
     <Compile Include="Models\PropertyChangedModel.cs" />
     <Compile Include="Models\RestService\RestFile.cs" />
