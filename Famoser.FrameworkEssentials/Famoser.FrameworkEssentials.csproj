@@ -89,10 +89,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Logging\Interfaces\IExceptionLogger.cs" />
     <Compile Include="Models\PropertyChangedModel.cs" />
     <Compile Include="Models\RestService\RestFile.cs" />

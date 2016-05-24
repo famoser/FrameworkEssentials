@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Famoser.FrameworkEssentials.Models.RestService
 {
+    /// <summary>
+    /// This model is returned from http requests made with all HttpService, for example the RestService
+    /// </summary>
     public class HttpResponseModel
     {
         public HttpResponseModel(HttpContent content, bool successfull)
