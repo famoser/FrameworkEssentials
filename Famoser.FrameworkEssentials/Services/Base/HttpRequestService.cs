@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Famoser.FrameworkEssentials.Services.Base
 {
+    /// <summary>
+    /// A thread safe base class which constructs a single HttpClient objects with additional headers (if applicable)
+    /// Call Dispose() to dispose the HttpClient
+    /// </summary>
     public class HttpRequestService : IDisposable
     {
         private readonly IDictionary<string, string> _additionalHeaders;
@@ -19,29 +23,39 @@ namespace Famoser.FrameworkEssentials.Services.Base
         private HttpClient _client;
         protected HttpClient GetClient()
         {
-            if (_client == null)
+            lock (this)
             {
-                _client = new HttpClient(
-                    new HttpClientHandler
-                    {
-                        AutomaticDecompression = DecompressionMethods.GZip
-                                                 | DecompressionMethods.Deflate
-                    });
+                if (_client == null)
+                {
+                    _client = new HttpClient(
+                        new HttpClientHandler
+                        {
+                            AutomaticDecompression = DecompressionMethods.GZip
+                                                     | DecompressionMethods.Deflate
+                        });
 
-                _client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
-                if (_additionalHeaders != null)
-                    foreach (var additionalHeader in _additionalHeaders)
-                    {
-                        _client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key,
-                            additionalHeader.Value);
-                    }
+                    _client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
+                    if (_additionalHeaders != null)
+                        foreach (var additionalHeader in _additionalHeaders)
+                        {
+                            _client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key,
+                                additionalHeader.Value);
+                        }
+                }
+                return _client;
             }
-            return _client;
         }
 
         public void Dispose()
         {
-            _client.Dispose();
+            lock (this)
+            {
+                if (_client != null)
+                {
+                    _client.Dispose();
+                    _client = null;
+                }
+            }
         }
     }
 }

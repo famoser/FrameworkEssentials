@@ -5,6 +5,9 @@ using Famoser.FrameworkEssentials.Singleton;
 
 namespace Famoser.FrameworkEssentials.Logging
 {
+    /// <summary>
+    /// The Singleton of this class (call LogHelper.Instance) provides access to the application wide ILogger implementation.
+    /// </summary>
     public class LogHelper : SingletonBase<LogHelper>, IExceptionLogger
     {
         private ILogger _logger;
@@ -14,6 +17,10 @@ namespace Famoser.FrameworkEssentials.Logging
             _logger = new Logger();
         }
 
+        /// <summary>
+        /// provide your own ILogger implementation here
+        /// </summary>
+        /// <param name="logger"></param>
         public void OverwriteLogger(ILogger logger)
         {
             _logger = logger;

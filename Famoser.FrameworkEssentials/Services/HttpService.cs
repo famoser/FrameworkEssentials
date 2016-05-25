@@ -9,6 +9,9 @@ using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services
 {
+    /// <summary>
+    /// This is an implementation of the IHttpService interface
+    /// </summary>
     public class HttpService : HttpRequestService, IHttpService
     {
         public HttpService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }

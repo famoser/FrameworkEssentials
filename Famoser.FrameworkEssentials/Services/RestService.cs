@@ -15,6 +15,9 @@ using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services
 {
+    /// <summary>
+    /// This is an implementation of the IRestService interface
+    /// </summary>
     public class RestService : HttpRequestService, IRestService
     {
         public RestService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }

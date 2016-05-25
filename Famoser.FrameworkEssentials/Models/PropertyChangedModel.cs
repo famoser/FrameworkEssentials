@@ -9,8 +9,8 @@ using System.Runtime.CompilerServices;
 namespace Famoser.FrameworkEssentials.Models
 {
     /// <summary>
-    /// Code copied from the MVVM light library from Laurent Buignon. Check out his work, he's doing a marvellous job
     /// A generic implementation of the IPropertyChanged interface.
+    /// Code adapated from the MVVM light library from Laurent Buignon. Check out his work, he's doing a marvellous job
     /// </summary>
     public class PropertyChangedModel : INotifyPropertyChanged
     {

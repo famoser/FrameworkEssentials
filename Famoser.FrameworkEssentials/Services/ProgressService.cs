@@ -10,6 +10,10 @@ using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services
 {
+    /// <summary>
+    /// This is an implementation of the IProgressService.
+    /// It also implementes the IPropertyChanged interface, so you may use the properties of this instance directly in the view
+    /// </summary>
     public class ProgressService : PropertyChangedModel, IProgressService
     {
         #region percentageProgress
@@ -45,6 +49,11 @@ namespace Famoser.FrameworkEssentials.Services
         public void IncrementPercentageProgress()
         {
             PercentageProgressActiveValue++;
+        }
+
+        public void SetPercentageProgress(int activeValue)
+        {
+            PercentageProgressActiveValue = activeValue;
         }
 
         public void HidePercentageProgress()
