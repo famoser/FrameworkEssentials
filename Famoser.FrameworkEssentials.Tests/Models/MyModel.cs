@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Famoser.FrameworkEssentials.Attributes;
+using Famoser.FrameworkEssentials.Tests.Enums;
 
 namespace Famoser.FrameworkEssentials.Tests.Models
 {
@@ -20,5 +21,7 @@ namespace Famoser.FrameworkEssentials.Tests.Models
         [Description("content")]
         public void MethodWithAttribute() { }
         public void MethodNoAttribute() { }
+
+        public MyEnum EnumProperty { get; set; }
     }
 }

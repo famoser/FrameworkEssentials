@@ -2,7 +2,7 @@
 
 namespace Famoser.FrameworkEssentials.Tests.Enums
 {
-    internal enum MyEnum
+    public enum MyEnum
     {
         [Description("content")]
         WithAttribute,

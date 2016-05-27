@@ -14,6 +14,10 @@ namespace Famoser.FrameworkEssentials.Tests
         {
             Assert.IsNull(ReflectionHelper.GetAttributeOfEnum<Attributes.DescriptionAttribute, MyEnum>(MyEnum.NoAttribute));
             Assert.IsInstanceOfType(ReflectionHelper.GetAttributeOfEnum<Attributes.DescriptionAttribute, MyEnum>(MyEnum.WithAttribute), typeof(Attributes.DescriptionAttribute));
+
+            var myModel = new MyModel {EnumProperty = MyEnum.WithAttribute};
+            Assert.IsNotNull(ReflectionHelper.GetAttributeOfEnum<Attributes.DescriptionAttribute, MyEnum>(myModel.EnumProperty));
+            Assert.IsInstanceOfType(ReflectionHelper.GetAttributeOfEnum<Attributes.DescriptionAttribute, MyEnum>(myModel.EnumProperty), typeof(Attributes.DescriptionAttribute));
         }
 
         [TestMethod]
