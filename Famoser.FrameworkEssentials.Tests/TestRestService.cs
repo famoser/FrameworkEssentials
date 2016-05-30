@@ -35,7 +35,37 @@ namespace Famoser.FrameworkEssentials.Tests
                 Assert.IsTrue(response.StartsWith("start"));
                 Assert.IsTrue(response.EndsWith("end"));
             }
+        }
 
+        [TestMethod]
+        public async Task TestJsonFilePost()
+        {
+            //arrange
+            var service = new RestService();
+            var json = "{\"content\":\"hallo welt\"}";
+            var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets/content.config");
+            var str = File.ReadAllBytes(fileName);
+
+            //act
+            var res = await service.PostJsonAsync(new Uri(_testUri), json, new List<RestFile>()
+            {
+                new RestFile() { Content = str, ContentName = "fileContent", FileName = "fileName"}
+            });
+
+            //assert
+            Assert.IsTrue(res.IsRequestSuccessfull, res.Exception?.ToString());
+            if (res.IsRequestSuccessfull)
+            {
+                var response = await res.GetResponseAsStringAsync();
+                File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    "Assets/response_json.txt"), response);
+
+                //assert
+                Assert.IsTrue(response.Contains(json));
+                Assert.IsTrue(response.Contains("fileName"));
+                Assert.IsTrue(response.StartsWith("start"));
+                Assert.IsTrue(response.EndsWith("end"));
+            }
         }
 
         [TestMethod]

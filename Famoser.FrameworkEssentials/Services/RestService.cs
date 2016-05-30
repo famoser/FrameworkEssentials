@@ -22,8 +22,7 @@ namespace Famoser.FrameworkEssentials.Services
     {
         public RestService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }
 
-        private HttpContent GetContent(IEnumerable<KeyValuePair<string, string>> postContent,
-            IEnumerable<RestFile> files = null)
+        private HttpContent GetContent(IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
         {
             if (files == null)
                 return new FormUrlEncodedContent(postContent);
@@ -42,15 +41,14 @@ namespace Famoser.FrameworkEssentials.Services
             return form;
         }
 
-        private HttpContent GetJsonContent(string json,
-            IEnumerable<RestFile> files = null)
+        private HttpContent GetJsonContent(string json, IEnumerable<RestFile> files = null)
         {
             if (files == null)
                 return new StringContent(json, Encoding.UTF8, "application/json");
 
             MultipartFormDataContent form = new MultipartFormDataContent
             {
-                new StringContent(json, Encoding.UTF8, "application/json")
+                {new StringContent(json, Encoding.UTF8, "application/json"), "json"}
             };
             foreach (var restFile in files)
             {
