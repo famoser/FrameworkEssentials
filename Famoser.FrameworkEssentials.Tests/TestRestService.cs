@@ -61,7 +61,8 @@ namespace Famoser.FrameworkEssentials.Tests
                     "Assets/response_json.txt"), response);
 
                 //assert
-                Assert.IsTrue(response.Contains(json));
+                Assert.IsTrue(response.Contains("hallo welt"));
+                Assert.IsTrue(response.Contains("content"));
                 Assert.IsTrue(response.Contains("fileName"));
                 Assert.IsTrue(response.StartsWith("start"));
                 Assert.IsTrue(response.EndsWith("end"));

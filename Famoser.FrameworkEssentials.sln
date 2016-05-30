@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.FrameworkEssentials
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Webpage", "Webpage", "{3AE648E4-C180-42A7-BCF7-70AB5F60968B}"
 	ProjectSection(SolutionItems) = preProject
-		index.php = index.php
+		Famoser.FrameworkEssentials.Tests.Webpage\index.php = Famoser.FrameworkEssentials.Tests.Webpage\index.php
 	EndProjectSection
 EndProject
 Global
