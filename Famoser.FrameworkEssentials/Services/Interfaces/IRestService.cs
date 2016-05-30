@@ -30,8 +30,9 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="json"></param>
+        /// <param name="files"></param>
         /// <returns></returns>
-        Task<HttpResponseModel> PutJsonAsync(Uri uri, string json);
+        Task<HttpResponseModel> PutJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null);
         /// <summary>
         /// execute a post request to the specified uri with any postContent and files
         /// </summary>
@@ -45,8 +46,9 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="json"></param>
+        /// <param name="files"></param>
         /// <returns></returns>
-        Task<HttpResponseModel> PostJsonAsync(Uri uri, string json);
+        Task<HttpResponseModel> PostJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null);
         /// <summary>
         /// execute a delete request to the specified uri
         /// </summary>

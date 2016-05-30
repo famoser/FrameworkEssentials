@@ -42,9 +42,22 @@ namespace Famoser.FrameworkEssentials.Services
             return form;
         }
 
-        private HttpContent GetJsonContent(string json)
+        private HttpContent GetJsonContent(string json,
+            IEnumerable<RestFile> files = null)
         {
-            return new StringContent(json, Encoding.UTF8, "application/json");
+            if (files == null)
+                return new StringContent(json, Encoding.UTF8, "application/json");
+
+            MultipartFormDataContent form = new MultipartFormDataContent
+            {
+                new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            foreach (var restFile in files)
+            {
+                var content = new StreamContent(new MemoryStream(restFile.Content));
+                form.Add(content, restFile.ContentName, restFile.FileName);
+            }
+            return form;
         }
 
         public async Task<HttpResponseModel> GetAsync(Uri uri)
@@ -77,12 +90,12 @@ namespace Famoser.FrameworkEssentials.Services
             }
         }
 
-        public async Task<HttpResponseModel> PutJsonAsync(Uri uri, string json)
+        public async Task<HttpResponseModel> PutJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
         {
             try
             {
                 var client = GetClient();
-                var credentials = GetJsonContent(json);
+                var credentials = GetJsonContent(json, files);
 
                 var res = await client.PutAsync(uri, credentials);
                 return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
@@ -109,12 +122,12 @@ namespace Famoser.FrameworkEssentials.Services
             }
         }
 
-        public async Task<HttpResponseModel> PostJsonAsync(Uri uri, string json)
+        public async Task<HttpResponseModel> PostJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
         {
             try
             {
                 var client = GetClient();
-                var credentials = GetJsonContent(json);
+                var credentials = GetJsonContent(json, files);
 
                 var res = await client.PostAsync(uri, credentials);
                 return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
