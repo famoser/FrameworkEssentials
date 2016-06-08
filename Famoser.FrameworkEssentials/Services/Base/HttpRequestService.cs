@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Famoser.FrameworkEssentials.Logging.Interfaces;
+using Famoser.FrameworkEssentials.Models.RestService;
 
 namespace Famoser.FrameworkEssentials.Services.Base
 {
@@ -45,6 +46,15 @@ namespace Famoser.FrameworkEssentials.Services.Base
                 }
                 return _client;
             }
+        }
+        
+        protected Task<HttpResponseModel> ExecuteHttpRequest(Func<Task<HttpResponseMessage>> func)
+        {
+            return Execute(async () =>
+            {
+                var res = await func();
+                return new HttpResponseModel(res);
+            });
         }
 
         public void Dispose()

@@ -59,15 +59,6 @@ namespace Famoser.FrameworkEssentials.Services
             return form;
         }
 
-        private Task<HttpResponseModel> ExecuteHttpRequest(Func<Task<HttpResponseMessage>> func)
-        {
-            return Execute(async () =>
-            {
-                var res = await func();
-                return new HttpResponseModel(res);
-            });
-        }
-
         public Task<HttpResponseModel> GetAsync(Uri uri)
         {
             return ExecuteHttpRequest(async () =>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Famoser.FrameworkEssentials.Logging.Interfaces;
 using Famoser.FrameworkEssentials.Models.RestService;
 using Famoser.FrameworkEssentials.Services.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
@@ -14,20 +15,25 @@ namespace Famoser.FrameworkEssentials.Services
     /// </summary>
     public class HttpService : HttpRequestService, IHttpService
     {
-        public HttpService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }
+        public HttpService(IDictionary<string, string> additionalHeaders = null, bool catchExceptions = true, IExceptionLogger logger = null) : base(additionalHeaders, catchExceptions, logger) { }
 
-        public async Task<HttpResponseModel> DownloadAsync(Uri uri)
+        public Task<HttpResponseModel> DownloadAsync(Uri uri)
         {
-            try
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
-                var res = await client.GetAsync(uri);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
+               return await client.GetAsync(uri);
+            });
+        }
+
+        public async Task<bool> RequestAsync(Uri uri)
+        {
+            var res = await ExecuteHttpRequest(async () =>
             {
-                return new HttpResponseModel(ex);
-            }
+                var client = GetClient();
+                return await client.GetAsync(uri);
+            });
+            return res.IsRequestSuccessfull;
         }
 
         public void FireAndForget(Uri uri)
