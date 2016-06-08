@@ -96,6 +96,7 @@
     <Compile Include="Logging\Interfaces\IExceptionLogger.cs" />
     <Compile Include="Models\PropertyChangedModel.cs" />
     <Compile Include="Models\RestService\RestFile.cs" />
+    <Compile Include="Services\Base\BaseService.cs" />
     <Compile Include="Services\Base\HttpRequestService.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\Interfaces\IHttpService.cs" />

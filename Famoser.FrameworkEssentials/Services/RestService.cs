@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Famoser.FrameworkEssentials.Logging;
+using Famoser.FrameworkEssentials.Logging.Interfaces;
 using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Models.RestService;
 using Famoser.FrameworkEssentials.Services.Base;
@@ -20,7 +21,7 @@ namespace Famoser.FrameworkEssentials.Services
     /// </summary>
     public class RestService : HttpRequestService, IRestService
     {
-        public RestService(IDictionary<string, string> additionalHeaders = null) : base(additionalHeaders) { }
+        public RestService(IDictionary<string, string> additionalHeaders = null, bool catchExceptions = true, IExceptionLogger logger = null) : base(additionalHeaders, catchExceptions, logger) { }
 
         private HttpContent GetContent(IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
         {
@@ -58,96 +59,75 @@ namespace Famoser.FrameworkEssentials.Services
             return form;
         }
 
-        public async Task<HttpResponseModel> GetAsync(Uri uri)
+        private Task<HttpResponseModel> ExecuteHttpRequest(Func<Task<HttpResponseMessage>> func)
         {
-            try
+            return Execute(async () =>
             {
-                var client = GetClient();
-                var res = await client.GetAsync(uri);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+                var res = await func();
+                return new HttpResponseModel(res);
+            });
         }
 
-        public async Task<HttpResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
+        public Task<HttpResponseModel> GetAsync(Uri uri)
         {
-            try
+            return ExecuteHttpRequest(async () =>
+            {
+                var client = GetClient();
+                return await client.GetAsync(uri);
+            });
+        }
+
+        public Task<HttpResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
+        {
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
                 var credentials = GetContent(postContent, files);
 
-                var res = await client.PutAsync(uri, credentials);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+                return await client.PutAsync(uri, credentials);
+            });
         }
 
-        public async Task<HttpResponseModel> PutJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
+        public Task<HttpResponseModel> PutJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
         {
-            try
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
                 var credentials = GetJsonContent(json, files);
 
-                var res = await client.PutAsync(uri, credentials);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+                return await client.PutAsync(uri, credentials);
+            });
         }
 
-        public async Task<HttpResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
+        public Task<HttpResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null)
         {
-            try
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
                 var credentials = GetContent(postContent, files);
 
-                var res = await client.PostAsync(uri, credentials);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+                return await client.PostAsync(uri, credentials);
+            });
         }
 
-        public async Task<HttpResponseModel> PostJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
+        public Task<HttpResponseModel> PostJsonAsync(Uri uri, string json, IEnumerable<RestFile> files = null)
         {
-            try
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
                 var credentials = GetJsonContent(json, files);
 
-                var res = await client.PostAsync(uri, credentials);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+               return await client.PostAsync(uri, credentials);
+            });
         }
 
-        public async Task<HttpResponseModel> DeleteAsync(Uri uri)
+        public Task<HttpResponseModel> DeleteAsync(Uri uri)
         {
-            try
+            return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
-                var res = await client.DeleteAsync(uri);
-                return new HttpResponseModel(res.Content, res.IsSuccessStatusCode);
-            }
-            catch (Exception ex)
-            {
-                return new HttpResponseModel(ex);
-            }
+               return await client.DeleteAsync(uri);
+            });
         }
     }
 }

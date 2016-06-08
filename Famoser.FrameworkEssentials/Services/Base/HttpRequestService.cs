@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Famoser.FrameworkEssentials.Logging.Interfaces;
 
 namespace Famoser.FrameworkEssentials.Services.Base
 {
@@ -12,10 +13,10 @@ namespace Famoser.FrameworkEssentials.Services.Base
     /// A thread safe base class which constructs a single HttpClient objects with additional headers (if applicable)
     /// Call Dispose() to dispose the HttpClient
     /// </summary>
-    public class HttpRequestService : IDisposable
+    public class HttpRequestService : BaseService, IDisposable
     {
         private readonly IDictionary<string, string> _additionalHeaders;
-        public HttpRequestService(IDictionary<string, string> additionalHeaders)
+        public HttpRequestService(IDictionary<string, string> additionalHeaders, bool catchExceptions = true, IExceptionLogger logger = null) : base(catchExceptions, logger)
         {
             _additionalHeaders = additionalHeaders;
         }

@@ -10,26 +10,36 @@ namespace Famoser.FrameworkEssentials.Models.RestService
     /// </summary>
     public class HttpResponseModel : IDisposable
     {
+        private readonly HttpContent _content;
+        private readonly bool? _isRequestSuccessfull;
         public HttpResponseModel(HttpContent content, bool successfull)
         {
-            HttpContent = content;
-            IsRequestSuccessfull = successfull;
+            _content = content;
+            _isRequestSuccessfull = successfull;
         }
+
+        public HttpResponseModel(HttpResponseMessage httpResponseMessage)
+        {
+            HttpResponseMessage = httpResponseMessage;
+        }
+
         public HttpResponseModel(Exception ex)
         {
             Exception = ex;
-            IsRequestSuccessfull = false;
+            _isRequestSuccessfull = false;
         }
 
         /// <summary>
         /// Get the raw HttpContent
         /// </summary>
-        public HttpContent HttpContent { get; }
+        public HttpContent HttpContent => _content ?? HttpResponseMessage?.Content;
+
+        public HttpResponseMessage HttpResponseMessage { get; }
 
         /// <summary>
         /// Check if the request was successfull
         /// </summary>
-        public bool IsRequestSuccessfull { get; }
+        public bool IsRequestSuccessfull => _isRequestSuccessfull ?? HttpResponseMessage.IsSuccessStatusCode;
 
         /// <summary>
         /// Any Exception which might have occurred on execution of the request

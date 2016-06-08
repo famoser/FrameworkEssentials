@@ -26,7 +26,9 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         /// <returns></returns>
         Task<HttpResponseModel> PutAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
         /// <summary>
-        /// put the json to the server. if using php the content is available server side in the //input stream
+        /// put the json to the server. 
+        /// if using php the content is available server side in the //input stream
+        /// if you send files too, be aware that the json content is now send with the "json" key. In php, you may use $_POST["json"] to access your json
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="json"></param>
@@ -43,6 +45,7 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         Task<HttpResponseModel> PostAsync(Uri uri, IEnumerable<KeyValuePair<string, string>> postContent, IEnumerable<RestFile> files = null);
         /// <summary>
         /// post the json to the server. if using php the content is available server side in the //input stream
+        /// if you send files too, be aware that the json content is now send with the "json" key. In php, you may use $_POST["json"] to access your json
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="json"></param>
