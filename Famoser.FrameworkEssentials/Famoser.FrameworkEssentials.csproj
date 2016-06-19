@@ -98,6 +98,7 @@
     <Compile Include="Models\RestService\RestFile.cs" />
     <Compile Include="Services\Base\HttpRequestService.cs" />
     <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\Interfaces\IHistoryNavigationService.cs" />
     <Compile Include="Services\Interfaces\IHttpService.cs" />
     <Compile Include="Services\Interfaces\IProgressService.cs" />
     <Compile Include="Services\ProgressService.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Singleton\SingletonBase.cs" />
     <Compile Include="Singleton\SingletonManager.cs" />
     <Compile Include="DebugTools\Stoppwatch.cs" />
+    <Compile Include="View\Interfaces\INavigationBackNotifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

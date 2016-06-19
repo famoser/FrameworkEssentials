@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Famoser.FrameworkEssentials</id>
-        <version>2.4.2</version>
+        <version>2.5.0</version>
         <authors>Florian Moser</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This packages contains utilities which I use in my projects.
@@ -29,14 +29,8 @@ Helpers
 Singleton
  - a pattern to guarantee only one instance of class exists application wide. 
 	</description>
-        <releaseNotes>2.4.0:
-added ReflectionHelper
-
-2.4.1:
-small bugfixes, code commented
-
-2.4.2:
-added files to PostJson and PutJson
+        <releaseNotes>2.5.0:
+added interfaces for a navigation service
 		</releaseNotes>
     </metadata>
     <files>
