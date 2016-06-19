@@ -19,6 +19,12 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         /// <returns></returns>
         Task<HttpResponseModel> DownloadAsync(Uri uri);
         /// <summary>
+        /// perform a get request at this uri and return a value indicating if request was successfull
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        Task<bool> RequestAsync(Uri uri);
+        /// <summary>
         /// perform a get request at this uri but do not wait for execution or result
         /// </summary>
         /// <param name="uri"></param>
