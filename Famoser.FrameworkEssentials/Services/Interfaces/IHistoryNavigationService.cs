@@ -8,10 +8,12 @@ using Famoser.FrameworkEssentials.View.Interfaces;
 namespace Famoser.FrameworkEssentials.Services.Interfaces
 {
     public interface IHistoryNavigationService
-    {/// <summary>
-     /// The key indicating the root page
-     /// </summary>
+    {
+        /// <summary>
+        /// The key indicating the root page
+        /// </summary>
         string RootPageKey { get; }
+
         /// <summary>
         /// a key indicating that the current page is unknown
         /// </summary>
