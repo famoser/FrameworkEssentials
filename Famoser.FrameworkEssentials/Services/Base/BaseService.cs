@@ -28,23 +28,20 @@ namespace Famoser.FrameworkEssentials.Services.Base
             _catchExceptions = value;
         }
 
-        private T ExecuteInTryCatch<T>(Func<T> func)
-        {
-            try
-            {
-                return func();
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogException(ex, this);
-            }
-            return default(T);
-        }
-
         protected T Execute<T>(Func<T> func)
         {
             if (_catchExceptions)
-                return ExecuteInTryCatch(func);
+            {
+                try
+                {
+                    return func();
+                }
+                catch (Exception ex)
+                {
+                    _logger?.LogException(ex, this);
+                }
+                return default(T);
+            }
             return func();
         }
     }
