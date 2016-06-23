@@ -39,12 +39,11 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         void NavigateTo(string pageKey, INavigationBackNotifier navigationBackNotifier = null, object notifyObject = null);
 
         /// <summary>
-        /// Instructs the navigation service to display a new page corresponding to the given key.
+        /// Instructs the navigation service to display a new page corresponding to the given key. Deletes the current page from backstack
         /// Configure the service first with Configure
         /// </summary>
         /// <param name="pageKey">The key corresponding to the page that should be displayed.</param>
-        /// <param name="removeMeFromHistory">delete current page from backstack</param>
-        void NavigateTo(string pageKey, bool removeMeFromHistory = false);
+        void NavigateToAndForget(string pageKey);
 
         /// <summary>
         /// Adds a key/page pair to the navigation service.
