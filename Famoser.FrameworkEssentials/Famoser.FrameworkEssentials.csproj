@@ -99,6 +99,7 @@
     <Compile Include="Services\Base\BaseService.cs" />
     <Compile Include="Services\Base\HttpRequestService.cs" />
     <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\Interfaces\IFolderStorageService.cs" />
     <Compile Include="Services\Interfaces\IHistoryNavigationService.cs" />
     <Compile Include="Services\Interfaces\IHttpService.cs" />
     <Compile Include="Services\Interfaces\IProgressService.cs" />

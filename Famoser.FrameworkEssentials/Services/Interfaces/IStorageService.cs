@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Famoser.FrameworkEssentials.Services.Interfaces
 {
@@ -11,62 +12,74 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
         /// Get cached Data (saved on every Device)
         /// </summary>
         /// <returns></returns>
-        Task<string> GetCachedTextFileAsync(string fileKey);
+        Task<string> GetCachedTextFileAsync(string filePath);
 
         /// <summary>
         /// Set cached Data (saved on every Device)
         /// </summary>
         /// <returns></returns>
-        Task<bool> SetCachedTextFileAsync(string fileKey, string content);
+        Task<bool> SetCachedTextFileAsync(string filePath, string content);
 
         /// <summary>
         /// Get cached Data (saved on every Device)
         /// </summary>
         /// <returns></returns>
-        Task<byte[]> GetCachedFileAsync(string fileKey);
+        Task<byte[]> GetCachedFileAsync(string filePath);
 
         /// <summary>
         /// Set cached Data (saved on every Device)
         /// </summary>
         /// <returns></returns>
-        Task<bool> SetCachedFileAsync(string fileKey, byte[] content);
+        Task<bool> SetCachedFileAsync(string filePath, byte[] content);
 
         /// <summary>
-        /// Get User informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// Set cached Data (saved on every Device)
         /// </summary>
         /// <returns></returns>
-        Task<string> GetUserTextFileAsync(string fileKey);
+        Task<bool> DeleteCachedFileAsync(string filePath);
 
         /// <summary>
-        /// Set User informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// Get Roaming informations, the same for all devices of a single User. On UWP will be synched by windows.
         /// </summary>
         /// <returns></returns>
-        Task<bool> SetUserTextFileAsync(string fileKey, string content);
+        Task<string> GetRoamingTextFileAsync(string filePath);
 
         /// <summary>
-        /// Get User informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// Set Roaming informations, the same for all devices of a single User. On UWP will be synched by windows.
         /// </summary>
         /// <returns></returns>
-        Task<byte[]> GetUserFileAsync(string fileKey);
+        Task<bool> SetRoamingTextFileAsync(string filePath, string content);
 
         /// <summary>
-        /// Set User informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// Get Roaming informations, the same for all devices of a single User. On UWP will be synched by windows.
         /// </summary>
         /// <returns></returns>
-        Task<bool> SetUserFileAsync(string fileKey, byte[] content);
+        Task<byte[]> GetRoamingFileAsync(string filePath);
+
+        /// <summary>
+        /// Set Roaming informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> SetRoamingFileAsync(string filePath, byte[] content);
+
+        /// <summary>
+        /// Set Roaming informations, the same for all devices of a single User. On UWP will be synched by windows.
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> DeleteRoamingFileAsync(string filePath);
 
         /// <summary>
         /// Get asset file (file from solution, mark it as build:content & copy always)
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="filePath"></param>
         /// <returns></returns>
-        Task<string> GetAssetTextFileAsync(string path);
+        Task<string> GetAssetTextFileAsync(string filePath);
 
         /// <summary>
         /// Get asset file (file from solution, mark it as build:content & copy always)
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="filePath"></param>
         /// <returns></returns>
-        Task<byte[]> GetAssetFileAsync(string path);
+        Task<byte[]> GetAssetFileAsync(string filePath);
     }
 }
