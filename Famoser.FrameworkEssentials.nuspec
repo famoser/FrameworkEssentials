@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Famoser.FrameworkEssentials</id>
-        <version>2.7.1</version>
+        <version>2.7.2</version>
         <authors>Florian Moser</authors>
         <licenseUrl>http://github.com/famoser/FrameworkEssentials/blob/master/LICENSE</licenseUrl>
         <projectUrl>http://github.com/famoser/FrameworkEssentials</projectUrl>
@@ -27,11 +27,16 @@ Services:
  
 Helpers
  - ReflectionHelper
+ - BaseHelper
  
 Singleton
  - a pattern to guarantee only one instance of class exists application wide. 
 	</description>
-        <releaseNotes>2.7.0:
+        <releaseNotes>
+		2.7.2:
+		BaseHelper: added
+		
+		2.7.1:
 		IStorageService: renamed methods
 		IFolderStorageService: added
 		</releaseNotes>
