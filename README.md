@@ -21,6 +21,7 @@ Services:
  
 Helpers
  - ReflectionHelper
+ - BaseHelper
  
 Singleton
  - a pattern to guarantee only one instance of class exists application wide. 
