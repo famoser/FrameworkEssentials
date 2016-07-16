@@ -10,11 +10,11 @@ namespace Famoser.FrameworkEssentials.Services.Interfaces
     {
         Task<List<string>> GetCachedFiles(string subFolderPath);
         Task<List<string>> GetCachedDirectories(string subFolderPath);
-        Task<List<string>> DeleteCachedDirectory(string subFolderPath);
-        Task<List<string>> ClearCache();
+        Task<bool> DeleteCachedDirectory(string subFolderPath);
+        Task<bool> ClearCache();
         Task<List<string>> GetRoamingFiles(string subFolderPath);
         Task<List<string>> GetRoamingDirectories(string subFolderPath);
-        Task<List<string>> DeleteRoamingDirectory(string subFolderPath);
-        Task<List<string>> ClearRoaming();
+        Task<bool> DeleteRoamingDirectory(string subFolderPath);
+        Task<bool> ClearRoaming();
     }
 }
