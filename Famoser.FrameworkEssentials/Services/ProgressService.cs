@@ -36,7 +36,13 @@ namespace Famoser.FrameworkEssentials.Services
         public bool PercentageProgressActive
         {
             get { return _percentageProgressActive; }
-            set { Set(ref _percentageProgressActive, value); }
+            set
+            {
+                if (Set(ref _percentageProgressActive, value))
+                {
+                    RaisePropertyChanged(() => AnyProgressActive);
+                }
+            }
         }
 
         public void ConfigurePercentageProgress(int maxValue, int activeValue = 0)
@@ -67,7 +73,13 @@ namespace Famoser.FrameworkEssentials.Services
         public bool IndeterminateProgressActive
         {
             get { return _indeterminateProgressActive; }
-            set { Set(ref _indeterminateProgressActive, value); }
+            set
+            {
+                if (Set(ref _indeterminateProgressActive, value))
+                {
+                    RaisePropertyChanged(() => AnyProgressActive);
+                }
+            }
         }
 
         private readonly List<object> _indeterminateProgresses = new List<object>();

@@ -31,9 +31,9 @@ namespace Famoser.FrameworkEssentials.Models
         {
             if (EqualityComparer<T>.Default.Equals(field, newValue))
                 return false;
-            T oldValue = field;
+            var oldValue = field;
             field = newValue;
-            this.RaisePropertyChanged<T>(propertyName, oldValue, field);
+            RaisePropertyChanged<T>(propertyName, oldValue, field);
             return true;
         }
 
@@ -63,11 +63,25 @@ namespace Famoser.FrameworkEssentials.Models
 
         protected virtual void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue, bool broadcast)
         {
-            string propertyName = GetPropertyName<T>(propertyExpression);
+            var propertyName = GetPropertyName<T>(propertyExpression);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+        /// <summary>Raises the PropertyChanged event if needed.</summary>
+        /// <typeparam name="T">The type of the property that changed.</typeparam>
+        /// <param name="propertyExpression">An expression identifying the property that changed.</param>
+        protected virtual void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
+        {
+            // ISSUE: reference to a compiler-generated field
+            if (PropertyChanged == null)
+                return;
+            var propertyName = GetPropertyName<T>(propertyExpression);
+            if (string.IsNullOrEmpty(propertyName))
+                return;
+            OnPropertyChanged(propertyName);
+        }
+
+
         /// <summary>
         /// Extracts the name of a property from an expression.
         /// 
@@ -81,10 +95,10 @@ namespace Famoser.FrameworkEssentials.Models
         {
             if (propertyExpression == null)
                 throw new ArgumentNullException("propertyExpression");
-            MemberExpression memberExpression = propertyExpression.Body as MemberExpression;
+            var memberExpression = propertyExpression.Body as MemberExpression;
             if (memberExpression == null)
                 throw new ArgumentException("Invalid argument", "propertyExpression");
-            PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;
+            var propertyInfo = memberExpression.Member as PropertyInfo;
             if (propertyInfo == null)
                 throw new ArgumentException("Argument is not a property", "propertyExpression");
             return propertyInfo.Name;
