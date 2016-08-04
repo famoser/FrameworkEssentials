@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Logging.Interfaces;
-using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Models.RestService;
 using Famoser.FrameworkEssentials.Services.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;

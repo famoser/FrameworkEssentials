@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Famoser.FrameworkEssentials.Models.RestService
+﻿namespace Famoser.FrameworkEssentials.Models.RestService
 {
     /// <summary>
     /// Specifiy all informations need for the RestService to upload this file

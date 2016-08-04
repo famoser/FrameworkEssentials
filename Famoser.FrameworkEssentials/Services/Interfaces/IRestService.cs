@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Famoser.FrameworkEssentials.Models;
 using Famoser.FrameworkEssentials.Models.RestService;
 
 namespace Famoser.FrameworkEssentials.Services.Interfaces
