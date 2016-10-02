@@ -100,10 +100,13 @@
     <Compile Include="Services\Base\BaseService.cs" />
     <Compile Include="Services\Base\HttpRequestService.cs" />
     <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\Interfaces\Storage\IAssetStorageService.cs" />
+    <Compile Include="Services\Interfaces\Storage\ICacheStorageService.cs" />
     <Compile Include="Services\Interfaces\IFolderStorageService.cs" />
     <Compile Include="Services\Interfaces\IHistoryNavigationService.cs" />
     <Compile Include="Services\Interfaces\IHttpService.cs" />
     <Compile Include="Services\Interfaces\IProgressService.cs" />
+    <Compile Include="Services\Interfaces\Storage\IRoamingStorageService.cs" />
     <Compile Include="Services\ProgressService.cs" />
     <Compile Include="Services\RestService.cs" />
     <Compile Include="Services\Interfaces\IRestService.cs" />
