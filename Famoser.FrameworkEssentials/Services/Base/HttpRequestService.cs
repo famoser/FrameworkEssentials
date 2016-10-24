@@ -14,38 +14,30 @@ namespace Famoser.FrameworkEssentials.Services.Base
     /// </summary>
     public class HttpRequestService : BaseService, IDisposable
     {
-        private readonly IDictionary<string, string> _additionalHeaders;
         public HttpRequestService(IDictionary<string, string> additionalHeaders, bool catchExceptions = true, IExceptionLogger logger = null) : base(catchExceptions, logger)
         {
-            _additionalHeaders = additionalHeaders;
+            _client = new HttpClient(
+                new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.GZip
+                                             | DecompressionMethods.Deflate
+                });
+
+            _client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
+            if (additionalHeaders != null)
+                foreach (var additionalHeader in additionalHeaders)
+                {
+                    _client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key,
+                        additionalHeader.Value);
+                }
         }
 
-        private HttpClient _client;
+        private readonly HttpClient _client;
         protected HttpClient GetClient()
         {
-            lock (this)
-            {
-                if (_client == null)
-                {
-                    _client = new HttpClient(
-                        new HttpClientHandler
-                        {
-                            AutomaticDecompression = DecompressionMethods.GZip
-                                                     | DecompressionMethods.Deflate
-                        });
-
-                    _client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
-                    if (_additionalHeaders != null)
-                        foreach (var additionalHeader in _additionalHeaders)
-                        {
-                            _client.DefaultRequestHeaders.TryAddWithoutValidation(additionalHeader.Key,
-                                additionalHeader.Value);
-                        }
-                }
-                return _client;
-            }
+            return _client;
         }
-        
+
         protected Task<HttpResponseModel> ExecuteHttpRequest(Func<Task<HttpResponseMessage>> func)
         {
             return Execute(async () =>
@@ -55,16 +47,21 @@ namespace Famoser.FrameworkEssentials.Services.Base
             });
         }
 
+        private bool _isDisposed;
+        protected virtual void Dispose(bool dispose)
+        {
+            if (!_isDisposed)
+            {
+                if (dispose)
+                    _client.Dispose();
+            }
+            _isDisposed = true;
+        }
+
         public void Dispose()
         {
-            lock (this)
-            {
-                if (_client != null)
-                {
-                    _client.Dispose();
-                    _client = null;
-                }
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

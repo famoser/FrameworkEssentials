@@ -76,9 +76,19 @@ namespace Famoser.FrameworkEssentials.Models.RestService
             return HttpContent?.ReadAsByteArrayAsync();
         }
 
+        private bool _isDisposed;
+        protected virtual void Dispose(bool dispose)
+        {
+            if (!_isDisposed)
+                if (dispose)
+                    HttpContent.Dispose();
+            _isDisposed = true;
+        }
+
         public void Dispose()
         {
-            HttpContent?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
