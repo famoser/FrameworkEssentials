@@ -1,6 +1,8 @@
 # FrameworkEssentials
 a nuget package with some utlities &amp; services I use in my projects
 
+[![Build status](https://ci.appveyor.com/api/projects/status/2hyiuyeoh5ntw4m8?svg=true)](https://ci.appveyor.com/project/famoser/frameworkessentials)
+
 This packages contains utilities which I use in my projects.
 The package may be changed radically at any time. Even some API's may be altered (although unlikely), be careful with updating.
 
