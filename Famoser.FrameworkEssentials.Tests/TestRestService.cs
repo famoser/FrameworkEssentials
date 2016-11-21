@@ -113,7 +113,7 @@ namespace Famoser.FrameworkEssentials.Tests
                     "Assets/regex.txt"));
 
                 //assert
-                Assert.IsTrue(Regex.IsMatch(response, text));
+                Assert.IsTrue(Regex.IsMatch(response, text), "received " + response + " but expected " + text);
                 Assert.IsTrue(response.StartsWith("start"));
                 Assert.IsTrue(response.EndsWith("end"));
             }
