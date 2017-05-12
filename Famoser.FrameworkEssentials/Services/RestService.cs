@@ -103,7 +103,7 @@ namespace Famoser.FrameworkEssentials.Services
                 var client = GetClient();
                 var credentials = GetJsonContent(json, files);
 
-               return await client.PostAsync(uri, credentials);
+                return await client.PostAsync(uri, credentials);
             });
         }
 
@@ -112,7 +112,7 @@ namespace Famoser.FrameworkEssentials.Services
             return ExecuteHttpRequest(async () =>
             {
                 var client = GetClient();
-               return await client.DeleteAsync(uri);
+                return await client.DeleteAsync(uri);
             });
         }
     }
